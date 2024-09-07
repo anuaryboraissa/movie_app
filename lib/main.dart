@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/screens/registration_screen.dart';
+import 'package:movie_app/stm/movie_provider.dart';
 import 'package:movie_app/stm/sign_in_provider.dart';
 import 'package:movie_app/stm/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -24,17 +25,9 @@ void main() async {
     ChangeNotifierProvider<ThemeStateProvider>(
         create: (_) => ThemeStateProvider()),
     ChangeNotifierProvider<SignInProvider>(create: (_) => SignInProvider()),
+    ChangeNotifierProvider<MovieProvider>(create: (_) => MovieProvider()),
   ], child: const MovieStreamingApp()));
 
-  //   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-  //   statusBarColor: Colors.transparent, // Make status bar transparent
-  //   systemNavigationBarColor: Colors.black, // Set navigation bar color (optional)
-  //   statusBarIconBrightness: Brightness.light, // Adjust status bar icon colors for dark background
-  //   systemNavigationBarIconBrightness: Brightness.light, // Adjust nav bar icon colors for dark background
-  // ));
-
-  // // Enable fullscreen without any overlays
-  // SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 }
 
 class MovieStreamingApp extends StatefulWidget {

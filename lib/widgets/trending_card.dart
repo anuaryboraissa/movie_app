@@ -3,15 +3,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/constants/app_colors.dart';
 
 import '../constants/app_assets.dart';
+import '../services/models/movie.dart';
 
 class TrendingNowCard extends StatelessWidget {
-  const TrendingNowCard({super.key, required this.size});
+  const TrendingNowCard({super.key, required this.size, required this.movie});
   final Size size;
+  final Movie movie;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size.height * .26,
-      width: size.width * .36,
+      height: 135,
+      width: 130,
       margin: const EdgeInsets.only(right: 10),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
       child: ClipRRect(
@@ -43,11 +46,11 @@ class TrendingNowCard extends StatelessWidget {
                 bottom: 0,
                 right: 0,
                 child: Container(
-                  width: size.width * .36,
+                  width: 130,
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                       color: ApplicationColors.a26.withOpacity(.7),borderRadius: const BorderRadius.only(bottomLeft:  Radius.circular(15),bottomRight: Radius.circular(15))),
-                  child:  Center(child: Text("House Of Movie ",style: GoogleFonts.montserrat(
+                  child:  Center(child: Text("${movie.originalTitle} ",style: GoogleFonts.montserrat(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                               color: ApplicationColors.f8f8,

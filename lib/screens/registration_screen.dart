@@ -12,6 +12,7 @@ import 'package:movie_app/widgets/auth_social_login.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
+import 'home.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -31,18 +32,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             statusBarColor: Colors.transparent,
             statusBarIconBrightness: Brightness.light,
             systemNavigationBarColor: Colors.white,
-            systemNavigationBarIconBrightness: Brightness.dark,
+            systemNavigationBarIconBrightness: Brightness.dark
           ),
           child: Consumer<SignInProvider>(builder: (context, provider, _) {
             debugPrint("Status: ${provider.user} ================> ");
             WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
               if (provider.user != null && provider.user!["success"]) {
-                Fluttertoast.showToast(msg: "Authenticated as ${(provider.user!["user"] as User).displayName}");
+                Fluttertoast.showToast(
+                    msg:
+                        "Authenticated as ${(provider.user!["user"] as User).displayName}");
                 Navigator.push(
                     context,
                     PageTransition(
                         type: PageTransitionType.rightToLeft,
-                        child: const CustomScreen()));
+                        child: const DashBoardScreen()));
               }
             });
             return Stack(
@@ -62,7 +65,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   width: double.infinity,
                   height: double.infinity,
                   color: Colors.black
-                      .withOpacity(0.5), // Change opacity and color here
+                      .withOpacity(0.8), // Change opacity and color here
                 ),
                 SafeArea(
                   child: SingleChildScrollView(
@@ -127,7 +130,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         PageTransition(
                                             type:
                                                 PageTransitionType.rightToLeft,
-                                            child: const CustomScreen()));
+                                            child: const DashBoardScreen()));
                                   },
                                   child: Container(
                                     width: MediaQuery.of(context).size.width,
@@ -206,7 +209,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   ],
                                 ),
                                 SizedBox(
-                                  height: size.height * .12,
+                                  height: size.height * .07,
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,

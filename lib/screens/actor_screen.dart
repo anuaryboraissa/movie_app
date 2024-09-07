@@ -144,14 +144,14 @@ class _ActorScreenState extends State<ActorScreen> {
                                   // color: ApplicationColors.f8f8,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 4,
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.circle,
                                 size: 5,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 4,
                               ),
                               Text(
@@ -162,14 +162,14 @@ class _ActorScreenState extends State<ActorScreen> {
                                   // color: ApplicationColors.f8f8,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 4,
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.circle,
                                 size: 5,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 4,
                               ),
                               Text(
@@ -192,7 +192,7 @@ class _ActorScreenState extends State<ActorScreen> {
                           )
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 7,
                       ),
                       Text(
@@ -203,28 +203,33 @@ class _ActorScreenState extends State<ActorScreen> {
                           // color: ApplicationColors.f8f8,
                         ),
                       ),
-                      SizedBox(
-                        height: 2,
+                      const SizedBox(
+                        height: 4,
                       ),
                       ReadMoreText(
                         "The film stars Sam Worthington as Jake Sully, a disabled Marine who has been sent to Pandora to assist Earth's Resources Development Administration (RDA) in its search for an exotic substance called “unobtanium.” Because Pandora's atmosphere is toxic to humans, and because the planet is inhabited by a large humanoid,a disabled Marine who has been sent to Pandora to assist Earth's Resources Development Administration (RDA) in its search for an exotic substance called “unobtanium.” Because Pandora's atmosphere is toxic to humans, and because the planet is inhabited by a large humanoid",
                         trimMode: TrimMode.Line,
+                        style: GoogleFonts.montserrat(
+                          fontSize: 14,
+                          // fontWeight: FontWeight.bold,
+                          // color: ApplicationColors.e00,
+                        ),
                         trimLines: 6,
                         colorClickableText: Colors.pink,
-                        trimCollapsedText: 'Show more',
-                        trimExpandedText: 'Show less',
+                        trimCollapsedText: ' More',
+                        trimExpandedText: ' Less',
                         moreStyle: GoogleFonts.montserrat(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: ApplicationColors.e00,
+                          color: ApplicationColors.baoa,
                         ),
                         lessStyle: GoogleFonts.montserrat(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: ApplicationColors.e00,
+                         color: ApplicationColors.baoa,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(
@@ -244,18 +249,18 @@ class _ActorScreenState extends State<ActorScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       SizedBox(
-                          height: size.height * .23,
+                          height: 180,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: 10,
                             itemBuilder: (context, index) =>
                                 FilmographyCard(size: size),
                           )),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       Text(
@@ -266,7 +271,7 @@ class _ActorScreenState extends State<ActorScreen> {
                           // color: ApplicationColors.f8f8,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text.rich(TextSpan(
@@ -286,7 +291,7 @@ class _ActorScreenState extends State<ActorScreen> {
                               ),
                             )
                           ])),
-                      SizedBox(
+                      const SizedBox(
                         height: 4,
                       ),
                       Text.rich(TextSpan(

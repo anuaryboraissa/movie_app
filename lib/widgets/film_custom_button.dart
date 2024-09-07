@@ -9,13 +9,23 @@ class FilmCustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2), // Shadow color
+            spreadRadius: 1, // Spread of the shadow
+            blurRadius: 5, // Blur radius
+            offset: const Offset(0, 5), // Offset for bottom shadow (x, y)
+          ),
+        ],
+      ),
       child: Row(
         children: [
           Container(
-            width: ((size.width - 20) / 2),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
+            width: ((size.width - 10) / 2),
+            padding: const EdgeInsets.all(10),
+            decoration: const BoxDecoration(
                 color: ApplicationColors.e00,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(25),
@@ -23,7 +33,7 @@ class FilmCustomButton extends StatelessWidget {
             child: Center(
               child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.play_arrow_rounded,
                     color: ApplicationColors.f8f8,
                   ),
@@ -43,7 +53,7 @@ class FilmCustomButton extends StatelessWidget {
             ),
           ),
           Container(
-            width: ((size.width - 20) / 2),
+            width: ((size.width - 10) / 2),
             padding: const EdgeInsets.all(10),
             decoration: const BoxDecoration(
                 color: ApplicationColors.f8f8,
@@ -53,7 +63,7 @@ class FilmCustomButton extends StatelessWidget {
             child: Center(
               child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.video_call_outlined,
                     color: ApplicationColors.e00,
                   ),

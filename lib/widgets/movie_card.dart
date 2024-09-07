@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_app/services/models/movie.dart';
 
 import '../constants/app_assets.dart';
 import '../constants/app_colors.dart';
 
 class Moviecard extends StatelessWidget {
-  const Moviecard({super.key, required this.size});
+  const Moviecard({super.key, required this.size, required this.movie});
   final Size size;
+  final Movie movie;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(right: 10),
       // padding: const EdgeInsets.all(8),
-      height: size.height * .22,
-      width: size.width * .8,
+      height: 120,
+      width: 300,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),

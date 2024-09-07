@@ -5,12 +5,11 @@ import 'package:movie_app/constants/app_colors.dart';
 class TopCategory extends StatelessWidget {
   const TopCategory(
       {super.key,
-      required this.firstCategory,
-      required this.secondCategory,
-      required this.lastCategory, required this.size, required this.width});
-  final Widget firstCategory;
-  final Widget secondCategory;
-  final Widget lastCategory;
+      required this.categories,
+      required this.size,
+      required this.width});
+
+  final List<Widget> categories;
   final Size size;
   final double width;
   @override
@@ -25,37 +24,25 @@ class TopCategory extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          firstCategory,
-           SizedBox(
-            width: size.width*.02,
-          ),
-          IntrinsicHeight(
-            child: Container(
-              height: 15,
-             width: 1.5.w,
-              color: ApplicationColors.baoa,
-            ),
-          ),
-           SizedBox(
-           width: size.width*.02,
-          ),
-          secondCategory,
-           SizedBox(
-            width: size.width*.02,
-          ),
-          IntrinsicHeight(
-            child: Container(
-              height: 15,
-               width: 1.5.w,
-              color: ApplicationColors.baoa,
-            ),
-          ),
-           SizedBox(
-            width: size.width*.02,
-          ),
-          lastCategory
-        ],
+        // children: [
+         
+        //   secondCategory,
+        //   SizedBox(
+        //     width: size.width * .02,
+        //   ),
+        //   IntrinsicHeight(
+        //     child: Container(
+        //       height: 15,
+        //       width: 1.5.w,
+        //       color: ApplicationColors.baoa,
+        //     ),
+        //   ),
+        //   SizedBox(
+        //     width: size.width * .02,
+        //   ),
+        //   lastCategory
+        // ],
+        children: categories,
       ),
     );
   }

@@ -11,7 +11,8 @@ class FilmographyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // height: size.height * .2,
-      width: size.width * .72,
+      //  height: 120,
+      width: 290,
       margin: const EdgeInsets.only(right: 10),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
       child: ClipRRect(
@@ -28,7 +29,7 @@ class FilmographyCard extends StatelessWidget {
                 bottom: 0,
                 right: 0,
                 child: Container(
-                  width: size.width * .72,
+                  width: 290,
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                       color: ApplicationColors.a26.withOpacity(.7),

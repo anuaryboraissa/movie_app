@@ -8,11 +8,11 @@ class Movie {
 	String? mediaType;
 	bool? adult;
 	String? originalLanguage;
-	List<int>? genreIds;
+	List<dynamic>? genreIds;
 	double? popularity;
 	String? releaseDate;
 	bool? video;
-	int? voteAverage;
+	double? voteAverage;
 	int? voteCount;
 
 	Movie({
@@ -43,11 +43,11 @@ class Movie {
 				mediaType: json['media_type'] as String?,
 				adult: json['adult'] as bool?,
 				originalLanguage: json['original_language'] as String?,
-				genreIds: json['genre_ids'] as List<int>?,
+				genreIds: json['genre_ids'] as List<dynamic>?,
 				popularity: (json['popularity'] as num?)?.toDouble(),
 				releaseDate: json['release_date'] as String?,
 				video: json['video'] as bool?,
-				voteAverage: json['vote_average'] as int?,
+				voteAverage: json['vote_average'] as double?,
 				voteCount: json['vote_count'] as int?,
 			);
 

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/app_assets.dart';
 import '../constants/app_colors.dart';
-import 'custom_button.dart';
-import 'film_custom_button.dart';
 import 'rating_item.dart';
 import 'top_categories.dart';
 
@@ -13,10 +12,14 @@ class FilmSliverBackground extends StatelessWidget {
       {super.key,
       required this.isSliverAppBarExpanded,
       required this.size,
-      required this.rating});
+      required this.rating,
+      required this.releaseYear,
+      required this.reviewsNumber});
   final bool isSliverAppBarExpanded;
   final Size size;
   final double rating;
+  final String releaseYear;
+  final int reviewsNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class FilmSliverBackground extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 50,
+          bottom: 60,
           left: 0,
           right: 0,
           child: Container(
@@ -41,29 +44,56 @@ class FilmSliverBackground extends StatelessWidget {
                 TopCategory(
                   width: 180,
                   size: size,
-                  firstCategory: RatingSubItem(rating: rating, size: size),
-                  secondCategory: Text(
-                    "2023",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: ApplicationColors.f8f8,
+                  categories: [
+                    RatingSubItem(rating: rating, size: size),
+                    SizedBox(
+                      width: size.width * .02,
                     ),
-                  ),
-                  lastCategory: Text(
-                    "12+",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: ApplicationColors.f8f8,
+                    IntrinsicHeight(
+                      child: Container(
+                        height: 15,
+                        width: 1.5.w,
+                        color: ApplicationColors.baoa,
+                      ),
                     ),
-                  ),
+                    SizedBox(
+                      width: size.width * .02,
+                    ),
+                    Text(
+                      releaseYear,
+                      style: GoogleFonts.montserrat(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: ApplicationColors.f8f8,
+                      ),
+                    ),
+                    SizedBox(
+                      width: size.width * .02,
+                    ),
+                    IntrinsicHeight(
+                      child: Container(
+                        height: 15,
+                        width: 1.5.w,
+                        color: ApplicationColors.baoa,
+                      ),
+                    ),
+                    SizedBox(
+                      width: size.width * .02,
+                    ),
+                    Text(
+                      reviewsNumber > 12 ? "12+" : "$reviewsNumber",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: ApplicationColors.f8f8,
+                      ),
+                    )
+                  ],
                 ),
               ],
             ),
           ),
         ),
-       
       ],
     );
   }

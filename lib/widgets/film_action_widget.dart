@@ -15,7 +15,7 @@ class FilmActionWidget extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: ApplicationColors.e7e7.withOpacity(.8),
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Row(
@@ -60,42 +60,42 @@ class FilmActionWidget extends StatelessWidget {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                  color: ApplicationColors.a26.withOpacity(.8),
+                  color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(50)),
               child: GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: const Center(
+                  child: Center(
                       child: Icon(
-                    Icons.bookmark_outline,
-                    color: ApplicationColors.f8f8,
+                    Icons.bookmark,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ))),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Container(
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                  color: ApplicationColors.a26.withOpacity(.8),
+                  color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(50)),
               child: GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: const Center(
+                  child:  Center(
                       child: Icon(
                     Icons.forward_10_outlined,
-                    color: ApplicationColors.f8f8,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ))),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Container(
-               width: 40,
+              width: 40,
               height: 40,
               decoration: BoxDecoration(
                   color: ApplicationColors.e00,
