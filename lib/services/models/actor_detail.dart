@@ -1,6 +1,6 @@
 class ActorDetail {
 	bool? adult;
-	List<String>? alsoKnownAs;
+	List<dynamic>? alsoKnownAs;
 	String? biography;
 	String? birthday;
 	dynamic deathday;
@@ -33,7 +33,7 @@ class ActorDetail {
 
 	factory ActorDetail.fromJson(Map<String, dynamic> json) => ActorDetail(
 				adult: json['adult'] as bool?,
-				alsoKnownAs: json['also_known_as'] as List<String>?,
+				alsoKnownAs: json['also_known_as'] as List<dynamic>?,
 				biography: json['biography'] as String?,
 				birthday: json['birthday'] as String?,
 				deathday: json['deathday'] as dynamic,

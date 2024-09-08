@@ -4,6 +4,7 @@ import 'package:movie_app/services/models/movie.dart';
 
 import '../constants/app_assets.dart';
 import '../constants/app_colors.dart';
+import '../constants/app_utils.dart';
 
 class Moviecard extends StatelessWidget {
   const Moviecard({super.key, required this.size, required this.movie});
@@ -24,7 +25,7 @@ class Moviecard extends StatelessWidget {
           children: [
             Positioned.fill(
               child: Image.asset(
-                ApplicationAssets.johhnWick,
+                ApplicationAssets.img1,
                 fit: BoxFit.cover,
               ),
             ),

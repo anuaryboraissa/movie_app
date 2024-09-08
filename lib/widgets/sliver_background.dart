@@ -5,9 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/constants/app_strings.dart';
 import 'package:movie_app/services/models/genre.dart';
 import 'package:movie_app/services/models/movie.dart';
+import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 
 import '../constants/app_assets.dart';
 import '../constants/app_colors.dart';
+import '../constants/app_utils.dart';
 import 'custom_button.dart';
 import 'rating_widget.dart';
 import 'top_categories.dart';
@@ -17,7 +19,8 @@ class SliverBackground extends StatelessWidget {
       {super.key,
       required this.isSliverAppBarExpanded,
       required this.size,
-      required this.movie, required this.genres});
+      required this.movie,
+      required this.genres});
   final bool isSliverAppBarExpanded;
   final Size size;
   final Movie movie;
@@ -27,23 +30,39 @@ class SliverBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-         Positioned.fill(
-          child: Image.asset(
-            ApplicationAssets.johhnWick,
-            fit: BoxFit.cover,
-          ),
-        ),
-        // Positioned.fill(
-        //   child: CachedNetworkImage(
-        //     imageUrl: "${ApplicationStrings.imageDomain}${movie.backdropPath}",
-        //     placeholder: (context, url) => const CircularProgressIndicator(),
-        //     errorWidget: (context, url, error) => const Icon(Icons.error),
-        //     fadeInDuration: const Duration(milliseconds: 500),
-        //     // width: 300,
-        //     // height: 300,
+        //  Positioned.fill(
+        //   child: Image.asset(
+        //     ApplicationAssets.johhnWick,
         //     fit: BoxFit.cover,
         //   ),
         // ),
+        Positioned.fill(
+          child: CachedNetworkImage(
+            imageUrl: "${ApplicationStrings.imageDomain}${movie.backdropPath}",
+            placeholder: (context, url) => const Center(
+              child: SizedBox(
+                  height: 40,
+                  width: 40,
+                  child: NutsActivityIndicator(
+                    activeColor: ApplicationColors.e00,
+                    inactiveColor: ApplicationColors.e7e7,
+                    tickCount: 24,
+                    relativeWidth: 0.4,
+                    radius: 15,
+                    startRatio: 0.7,
+                    animationDuration: Duration(milliseconds: 500),
+                  )),
+            ),
+            errorWidget: (context, url, error) => Image.asset(
+              ApplicationAssets.img6,
+              fit: BoxFit.cover,
+            ),
+            fadeInDuration: const Duration(milliseconds: 500),
+            // width: 300,
+            // height: 300,
+            fit: BoxFit.cover,
+          ),
+        ),
         Positioned(
           bottom: 60,
           left: 0,
@@ -71,22 +90,18 @@ class SliverBackground extends StatelessWidget {
                 TopCategory(
                   width: 290,
                   size: size,
-                  categories: ((genres.length > 3
-                          ? genres.sublist(0, 3)
-                          :genres))
-                      .map((e) {
-                    if ((genres).indexOf(e) ==
-                        (genres.length - 1)) {
-                          debugPrint("Called! ${genres.length}=========? ");
+                  categories:
+                      ((genres.length > 3 ? genres.sublist(0, 3) : genres))
+                          .map((e) {
+                    if ((genres).indexOf(e) == (genres.length - 1)) {
+                      debugPrint("Called! ${genres.length}=========? ");
                       return Text(
                         "${e.name}",
                         overflow: TextOverflow.clip,
                         style: GoogleFonts.montserrat(
-
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: ApplicationColors.f8f8,
-                          
                         ),
                       );
                     } else {
@@ -94,7 +109,7 @@ class SliverBackground extends StatelessWidget {
                         children: [
                           Text(
                             "${e.name}",
-                             overflow: TextOverflow.clip,
+                            overflow: TextOverflow.clip,
                             style: GoogleFonts.montserrat(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,

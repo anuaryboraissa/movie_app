@@ -9,6 +9,7 @@ import 'package:movie_app/constants/app_utils.dart';
 import 'package:movie_app/screens/tester.dart';
 import 'package:movie_app/stm/sign_in_provider.dart';
 import 'package:movie_app/widgets/auth_social_login.dart';
+import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
@@ -29,11 +30,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Scaffold(
       body: AnnotatedRegion(
           value: const SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            statusBarIconBrightness: Brightness.light,
-            systemNavigationBarColor: Colors.white,
-            systemNavigationBarIconBrightness: Brightness.dark
-          ),
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.light,
+              systemNavigationBarColor: Colors.white,
+              systemNavigationBarIconBrightness: Brightness.dark),
           child: Consumer<SignInProvider>(builder: (context, provider, _) {
             debugPrint("Status: ${provider.user} ================> ");
             WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -125,12 +125,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            type:
-                                                PageTransitionType.rightToLeft,
-                                            child: const DashBoardScreen()));
+                                    // Navigator.push(
+                                    //     context,
+                                    //     PageTransition(
+                                    //         type:
+                                    //             PageTransitionType.rightToLeft,
+                                    //         child: const DashBoardScreen()));
                                   },
                                   child: Container(
                                     width: MediaQuery.of(context).size.width,
@@ -191,7 +191,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                       ),
                                     ),
                                     provider.signInAttempt
-                                        ? const CircularProgressIndicator()
+                                        ? const NutsActivityIndicator(
+                                            activeColor: ApplicationColors.e00,
+                                            inactiveColor:
+                                                ApplicationColors.e7e7,
+                                            tickCount: 24,
+                                            relativeWidth: 0.4,
+                                            radius: 15,
+                                            startRatio: 0.7,
+                                            animationDuration:
+                                                Duration(milliseconds: 500),
+                                          )
                                         : GestureDetector(
                                             onTap: () {
                                               provider.signIn();

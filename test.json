@@ -1,14 +1,9 @@
 {
-    "adult": false,
-    "gender": 2,
-    "id": 10859,
-    "known_for_department": "Acting",
-    "name": "Ryan Reynolds",
-    "original_name": "Ryan Reynolds",
-    "popularity": 100.992,
-    "profile_path": "/2Orm6l3z3zukF1q0AgIOUqvwLeB.jpg",
-    "cast_id": 252,
-    "character": "Wade Wilson / Deadpool / Nicepool",
-    "credit_id": "66a0eeb7fadd7c4c9c38207f",
-    "order": 0
+    "aspect_ratio": 0.668,
+    "height": 683,
+    "iso_639_1": null,
+    "file_path": "/hp5KW9RpavorNnsQxybB0qBEnyd.jpg",
+    "vote_average": 5.25,
+    "vote_count": 23,
+    "width": 456
 }

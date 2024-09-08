@@ -1,65 +1,45 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_app/widgets/custom_back_button.dart';
+import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 
 import '../constants/app_assets.dart';
 import '../constants/app_colors.dart';
+import '../constants/app_strings.dart';
+import '../services/models/person_image.dart';
 
 class ActorTopBackground extends StatelessWidget {
-  const ActorTopBackground({super.key, required this.size, required this.top});
+  const ActorTopBackground(
+      {super.key, required this.size, required this.image});
   final Size size;
-  final int top;
+  final PersonImage image;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Positioned.fill(
-          child: Image.asset(
-            ApplicationAssets.johhnWick,
-            fit: BoxFit.cover,
-          ),
-        ),
-        Positioned(
-          bottom: 4,
-          left: 0,
-          right: 0,
-          child: Container(
-            padding: const EdgeInsets.all(8),
-            // color: Colors.black.withOpacity(0.5), // Optional background color
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 120.w,
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: ApplicationColors.d30.withOpacity(.8),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Center(
-                    child: Text.rich(TextSpan(
-                        text: "Top $top ",
-                        style: GoogleFonts.montserrat(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: ApplicationColors.f8f8,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: "IMDb",
-                            style: GoogleFonts.montserrat(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: ApplicationColors.baoa,
-                            ),
-                          )
-                        ])),
-                  ),
-                ),
-              ],
+          child: CachedNetworkImage(
+            imageUrl: "${ApplicationStrings.imageDomain}${image.filePath}",
+            placeholder: (context, url) => const Center(
+              child: SizedBox(
+                  height: 40, width: 40, child: NutsActivityIndicator(
+                        activeColor: ApplicationColors.e00,
+                        inactiveColor: ApplicationColors.e7e7,
+                        tickCount: 24,
+                        relativeWidth: 0.4,
+                        radius: 15,
+                        startRatio: 0.7,
+                        animationDuration: Duration(milliseconds: 500),
+                      )),
             ),
+            errorWidget: (context, url, error) => Image.asset(
+              ApplicationAssets.img5,
+              fit: BoxFit.cover,
+            ),
+            fadeInDuration: const Duration(milliseconds: 500),
+            // width: 300,
+            // height: 300,
+            fit: BoxFit.cover,
           ),
         ),
       ],

@@ -10,17 +10,22 @@ import 'package:movie_app/services/models/movie_review/movie_review.dart';
 import 'package:movie_app/services/models/single_movie_info/single_movie_info.dart';
 import 'package:movie_app/widgets/custom_back_button.dart';
 import 'package:movie_app/widgets/film_action_widget.dart';
+import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
 import '../constants/app_colors.dart';
+import '../services/models/cast_crew.dart';
 import '../services/models/movie.dart';
+import '../services/models/person_image.dart';
 import '../services/models/single_movie_info/genre.dart';
 import '../stm/movie_provider.dart';
 import '../widgets/cast_widget.dart';
 import '../widgets/film_custom_button.dart';
 import '../widgets/film_sliver_background.dart';
+import '../widgets/rating_item.dart';
+import '../widgets/top_categories.dart';
 import '../widgets/trending_card.dart';
 
 class FilmScreen extends StatefulWidget {
@@ -52,6 +57,8 @@ class _FilmScreenState extends State<FilmScreen> {
     Provider.of<MovieProvider>(context, listen: false).getCastCrew(
         dotenv.env['TMDB_API_KEY'].toString(), widget.movie.id.toString());
     Provider.of<MovieProvider>(context, listen: false).getMovieReviews(
+        dotenv.env['TMDB_API_KEY'].toString(), widget.movie.id.toString());
+    Provider.of<MovieProvider>(context, listen: false).getMovieImages(
         dotenv.env['TMDB_API_KEY'].toString(), widget.movie.id.toString());
   }
 
@@ -136,11 +143,20 @@ class _FilmScreenState extends State<FilmScreen> {
           ),
           child: provider.similarMovies == null ||
                   provider.detailedMovieInfo == null ||
+                  provider.movieImages == null ||
                   provider.castCrew == null ||
                   provider.movieReviews == null ||
                   provider.similarMovies == null
               ? const Center(
-                  child: CircularProgressIndicator(),
+                  child: NutsActivityIndicator(
+                        activeColor: ApplicationColors.e00,
+                        inactiveColor: ApplicationColors.e7e7,
+                        tickCount: 24,
+                        relativeWidth: 0.4,
+                        radius: 15,
+                        startRatio: 0.7,
+                        animationDuration: Duration(milliseconds: 500),
+                      ),
                 )
               : !provider.similarMovies!["success"]
                   ? Center(
@@ -154,6 +170,15 @@ class _FilmScreenState extends State<FilmScreen> {
                                   dotenv.env['TMDB_API_KEY'].toString(),
                                   widget.movie.id.toString());
                               provider.getDetailedMovieInfo(
+                                  dotenv.env['TMDB_API_KEY'].toString(),
+                                  widget.movie.id.toString());
+                              provider.getMovieImages(
+                                  dotenv.env['TMDB_API_KEY'].toString(),
+                                  widget.movie.id.toString());
+                              provider.getCastCrew(
+                                  dotenv.env['TMDB_API_KEY'].toString(),
+                                  widget.movie.id.toString());
+                              provider.getMovieReviews(
                                   dotenv.env['TMDB_API_KEY'].toString(),
                                   widget.movie.id.toString());
                             },
@@ -234,7 +259,15 @@ class _FilmScreenState extends State<FilmScreen> {
                                   child: Stack(
                                     children: [
                                       PageView.builder(
-                                        itemCount: 6,
+                                        itemCount: (provider.movieImages![
+                                                            "profiles"]
+                                                        as List<PersonImage>)
+                                                    .length >
+                                                6
+                                            ? 6
+                                            : (provider.movieImages!["profiles"]
+                                                    as List<PersonImage>)
+                                                .length,
                                         controller: _pageController,
                                         onPageChanged: (value) {
                                           currentPage = value;
@@ -242,20 +275,9 @@ class _FilmScreenState extends State<FilmScreen> {
                                         },
                                         itemBuilder: (context, index) {
                                           return FilmSliverBackground(
-                                              reviewsNumber:
-                                                  (provider.movieReviews![
-                                                          "reviews"] as List)
-                                                      .length,
-                                              releaseYear:
-                                                  (provider.detailedMovieInfo![
-                                                              "info"]
-                                                          as SingleMovieInfo)
-                                                      .releaseDate!
-                                                      .split("-")
-                                                      .first,
-                                              rating: double.parse(widget
-                                                  .movie.voteAverage!
-                                                  .toStringAsFixed(1)),
+                                              image: (provider
+                                                      .movieImages!["profiles"]
+                                                  as List<PersonImage>)[index],
                                               isSliverAppBarExpanded:
                                                   _isSliverAppBarExpanded,
                                               size: size);
@@ -267,21 +289,39 @@ class _FilmScreenState extends State<FilmScreen> {
                                         child: Container(
                                           alignment: Alignment.center,
                                           width: 130,
-                                          child: DotsIndicator(
-                                            dotsCount: 6,
-                                            position: currentPage,
-                                            decorator: DotsDecorator(
-                                              color: ApplicationColors.baoa,
-                                              activeColor:
-                                                  ApplicationColors.f8f8,
-                                              size: const Size.square(9.0),
-                                              // activeSize: Size(18.0, 9.0),
-                                              activeShape:
-                                                  RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5.0)),
-                                            ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              DotsIndicator(
+                                                dotsCount: (provider.movieImages![
+                                                                    "profiles"]
+                                                                as List<
+                                                                    PersonImage>)
+                                                            .length >
+                                                        6
+                                                    ? 6
+                                                    : (provider.movieImages![
+                                                                "profiles"]
+                                                            as List<
+                                                                PersonImage>)
+                                                        .length,
+                                                position: currentPage,
+                                                decorator: DotsDecorator(
+                                                  color: ApplicationColors.baoa,
+                                                  activeColor:
+                                                      ApplicationColors.f8f8,
+                                                  size: const Size.square(9.0),
+                                                  // activeSize: Size(18.0, 9.0),
+                                                  activeShape:
+                                                      RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      5.0)),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
@@ -324,6 +364,96 @@ class _FilmScreenState extends State<FilmScreen> {
                                               ),
                                             ),
                                           ],
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 60,
+                                        left: 0,
+                                        right: 0,
+                                        child: Container(
+                                          padding: const EdgeInsets.all(8),
+                                          // color: Colors.black.withOpacity(0.5), // Optional background color
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              TopCategory(
+                                                width: 180,
+                                                size: size,
+                                                categories: [
+                                                  RatingSubItem(
+                                                      rating: double.parse(
+                                                          widget.movie
+                                                              .voteAverage!
+                                                              .toStringAsFixed(
+                                                                  1)),
+                                                      size: size),
+                                                  SizedBox(
+                                                    width: size.width * .02,
+                                                  ),
+                                                  IntrinsicHeight(
+                                                    child: Container(
+                                                      height: 15,
+                                                      width: 1.5.w,
+                                                      color: ApplicationColors
+                                                          .baoa,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: size.width * .02,
+                                                  ),
+                                                  Text(
+                                                    (provider.detailedMovieInfo![
+                                                                "info"]
+                                                            as SingleMovieInfo)
+                                                        .releaseDate!
+                                                        .split("-")
+                                                        .first,
+                                                    style:
+                                                        GoogleFonts.montserrat(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: ApplicationColors
+                                                          .f8f8,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: size.width * .02,
+                                                  ),
+                                                  IntrinsicHeight(
+                                                    child: Container(
+                                                      height: 15,
+                                                      width: 1.5.w,
+                                                      color: ApplicationColors
+                                                          .baoa,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: size.width * .02,
+                                                  ),
+                                                  Text(
+                                                    (provider.movieReviews![
+                                                                        "reviews"]
+                                                                    as List)
+                                                                .length >
+                                                            12
+                                                        ? "12+"
+                                                        : "${(provider.movieReviews!["reviews"] as List).length}",
+                                                    // "12+",
+                                                    style:
+                                                        GoogleFonts.montserrat(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: ApplicationColors
+                                                          .f8f8,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       )
                                     ],
@@ -416,15 +546,7 @@ class _FilmScreenState extends State<FilmScreen> {
                                                 fontWeight: FontWeight.bold,
                                               )),
                                           GestureDetector(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  PageTransition(
-                                                      type: PageTransitionType
-                                                          .rightToLeft,
-                                                      child:
-                                                          const ActorScreen()));
-                                            },
+                                            onTap: () {},
                                             child: const Icon(
                                               Icons.arrow_forward_ios_outlined,
                                               size: 22,
@@ -452,18 +574,40 @@ class _FilmScreenState extends State<FilmScreen> {
                                               : ListView.builder(
                                                   scrollDirection:
                                                       Axis.horizontal,
-                                                  itemCount: (provider
-                                                              .castCrew![
-                                                          "castCrew"] as List)
-                                                      .length,
-                                                  itemBuilder: (context,
-                                                          index) =>
-                                                      CastWidget(
-                                                          size: size,
-                                                          castCrew: (provider
-                                                                      .castCrew![
+                                                  itemCount: (provider.castCrew![
+                                                                      "castCrew"]
+                                                                  as List)
+                                                              .length >
+                                                          10
+                                                      ? 10
+                                                      : (provider.castCrew![
                                                                   "castCrew"]
-                                                              as List)[index]),
+                                                              as List)
+                                                          .length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    CastCrew castCrew =
+                                                        (provider.castCrew![
+                                                                "castCrew"]
+                                                            as List)[index];
+                                                    return GestureDetector(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            PageTransition(
+                                                                type: PageTransitionType
+                                                                    .rightToLeft,
+                                                                child:
+                                                                    ActorScreen(
+                                                                  castCrew:
+                                                                      castCrew,
+                                                                )));
+                                                      },
+                                                      child: CastWidget(
+                                                          size: size,
+                                                          castCrew: castCrew),
+                                                    );
+                                                  },
                                                 )),
                                       const SizedBox(
                                         height: 10,

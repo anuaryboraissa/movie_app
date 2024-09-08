@@ -15,6 +15,8 @@ class MovieProvider with ChangeNotifier {
   Map<String, dynamic>? _movieReviews;
   Map<String, dynamic>? _detailedMovieInfo;
   Map<String, dynamic>? _castCrew;
+  Map<String, dynamic>? _actorImages;
+  Map<String, dynamic>? _movieImages;
 
   Map<String, dynamic>? get trendingMovieData => _trendingMovieData;
   Map<String, dynamic>? get popularMovieData => _popularMovieData;
@@ -27,6 +29,8 @@ class MovieProvider with ChangeNotifier {
   Map<String, dynamic>? get movieReviews => _movieReviews;
   Map<String, dynamic>? get detailedMovieInfo => _detailedMovieInfo;
   Map<String, dynamic>? get castCrew => _castCrew;
+  Map<String, dynamic>? get actorImages => _actorImages;
+  Map<String, dynamic>? get movieImages => _movieImages;
 
   void getTrendingMovies(String token) {
     TMDBService().trendingMovies((message, statusCode, data) {
@@ -47,6 +51,28 @@ class MovieProvider with ChangeNotifier {
     }, token);
   }
 
+  void getActorImages(String apiKey, String actorId) {
+    TMDBService().getActorImages((message, statusCode, data) {
+      if (statusCode == 200) {
+        _actorImages = {"profiles": data, "success": true, "message": message};
+      } else {
+        _actorImages = {"profiles": null, "success": false, "message": message};
+      }
+      notifyListeners();
+    }, actorId, apiKey);
+  }
+
+  void getMovieImages(String apiKey, String movieId) {
+    TMDBService().getMovieImages((message, statusCode, data) {
+      if (statusCode == 200) {
+        _movieImages = {"profiles": data, "success": true, "message": message};
+      } else {
+        _movieImages = {"profiles": null, "success": false, "message": message};
+      }
+      notifyListeners();
+    }, movieId, apiKey);
+  }
+
   void getActorFilmography(String apiKey, String actorId) {
     TMDBService().getSingleActorFilmography((message, statusCode, data) {
       if (statusCode == 200) {
@@ -62,6 +88,7 @@ class MovieProvider with ChangeNotifier {
           "message": message
         };
       }
+      debugPrint("Actor philmography $_actorFilmography =============> ");
       notifyListeners();
     }, actorId, apiKey);
   }
@@ -135,17 +162,18 @@ class MovieProvider with ChangeNotifier {
     TMDBService().getSingleActorDetails((message, statusCode, data) {
       if (statusCode == 200) {
         _singleActorDetails = {
-          "movies": data,
+          "actor": data,
           "success": true,
           "message": message
         };
       } else {
         _singleActorDetails = {
-          "movies": null,
+          "actor": null,
           "success": false,
           "message": message
         };
       }
+      debugPrint("Actor is $_singleActorDetails ========> ");
       notifyListeners();
     }, actorId, apiKey);
   }

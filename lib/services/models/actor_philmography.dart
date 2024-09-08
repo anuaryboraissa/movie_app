@@ -1,7 +1,7 @@
 class ActorPhilmography {
 	bool? adult;
 	String? backdropPath;
-	List<int>? genreIds;
+	List<dynamic>? genreIds;
 	int? id;
 	String? originalLanguage;
 	String? originalTitle;
@@ -41,7 +41,7 @@ class ActorPhilmography {
 		return ActorPhilmography(
 			adult: json['adult'] as bool?,
 			backdropPath: json['backdrop_path'] as String?,
-			genreIds: json['genre_ids'] as List<int>?,
+			genreIds: json['genre_ids'] as List<dynamic>?,
 			id: json['id'] as int?,
 			originalLanguage: json['original_language'] as String?,
 			originalTitle: json['original_title'] as String?,

@@ -7,6 +7,7 @@ import "package:movie_app/services/models/cast_crew.dart";
 import "package:movie_app/services/models/movie.dart";
 import "package:movie_app/services/models/movie_cast.dart";
 import "package:movie_app/services/models/movie_review/movie_review.dart";
+import "package:movie_app/services/models/person_image.dart";
 import "package:movie_app/services/models/single_movie_info/single_movie_info.dart";
 
 import "models/genre.dart";
@@ -167,6 +168,56 @@ class TMDBService {
             .map((e) => ActorPhilmography.fromJson(e))
             .toList();
         callback("success", 200, philmography);
+      } else {
+        callback(response.reasonPhrase.toString(), 400, null);
+      }
+    } catch (e) {
+      callback(e.toString(), 400, null);
+    }
+  }
+
+  getActorImages(
+      Function(String message, int statusCode, dynamic data) callback,
+      String actorId,
+      String apiKey) async {
+    try {
+      var request = http.Request(
+          'GET', Uri.parse('$domain/person/$actorId/images?api_key=$apiKey'));
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> responseBody =
+            json.decode(await response.stream.bytesToString());
+
+        List<PersonImage> profiles = (responseBody["profiles"] as List)
+            .map((e) => PersonImage.fromJson(e))
+            .toList();
+        callback("success", 200, profiles);
+      } else {
+        callback(response.reasonPhrase.toString(), 400, null);
+      }
+    } catch (e) {
+      callback(e.toString(), 400, null);
+    }
+  }
+
+  getMovieImages(
+      Function(String message, int statusCode, dynamic data) callback,
+      String movieId,
+      String apiKey) async {
+    try {
+      var request = http.Request(
+          'GET', Uri.parse('$domain/movie/$movieId/images?api_key=$apiKey'));
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> responseBody =
+            json.decode(await response.stream.bytesToString());
+
+        List<PersonImage> profiles = (responseBody["backdrops"] as List)
+            .map((e) => PersonImage.fromJson(e))
+            .toList();
+        callback("success", 200, profiles);
       } else {
         callback(response.reasonPhrase.toString(), 400, null);
       }

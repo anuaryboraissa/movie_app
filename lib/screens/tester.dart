@@ -11,6 +11,7 @@ import 'package:movie_app/services/models/genre.dart';
 import 'package:movie_app/widgets/movie_card.dart';
 import 'package:movie_app/widgets/sliver_background.dart';
 import 'package:movie_app/widgets/trending_card.dart';
+import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
@@ -90,7 +91,15 @@ class _CustomScreenState extends State<CustomScreen> {
                   provider.trendingMovieData == null ||
                   provider.movieGenres == null
               ? const Center(
-                  child: CircularProgressIndicator(),
+                  child: NutsActivityIndicator(
+                        activeColor: ApplicationColors.e00,
+                        inactiveColor: ApplicationColors.e7e7,
+                        tickCount: 24,
+                        relativeWidth: 0.4,
+                        radius: 15,
+                        startRatio: 0.7,
+                        animationDuration: Duration(milliseconds: 500),
+                      ),
                 )
               : !provider.playedMovieData!["success"]
                   ? Center(
@@ -245,31 +254,36 @@ class _CustomScreenState extends State<CustomScreen> {
                                         child: Container(
                                           alignment: Alignment.center,
                                           width: 130,
-                                          child: DotsIndicator(
-                                            dotsCount:
-                                                (provider.popularMovieData![
+                                          child: Row(
+                                             mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              DotsIndicator(
+                                                dotsCount:
+                                                    (provider.popularMovieData![
+                                                                        "movies"]
+                                                                    as List<Movie>)
+                                                                .length >
+                                                            6
+                                                        ? 6
+                                                        : (provider.popularMovieData![
                                                                     "movies"]
                                                                 as List<Movie>)
-                                                            .length >
-                                                        6
-                                                    ? 6
-                                                    : (provider.popularMovieData![
-                                                                "movies"]
-                                                            as List<Movie>)
-                                                        .length,
-                                            position: currentPage,
-                                            decorator: DotsDecorator(
-                                              color: ApplicationColors.baoa,
-                                              activeColor:
-                                                  ApplicationColors.f8f8,
-                                              size: const Size.square(9.0),
-                                              // activeSize: Size(18.0, 9.0),
-                                              activeShape:
-                                                  RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5.0)),
-                                            ),
+                                                            .length,
+                                                position: currentPage,
+                                                decorator: DotsDecorator(
+                                                  color: ApplicationColors.baoa,
+                                                  activeColor:
+                                                      ApplicationColors.f8f8,
+                                                  size: const Size.square(9.0),
+                                                  // activeSize: Size(18.0, 9.0),
+                                                  activeShape:
+                                                      RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  5.0)),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
