@@ -5,8 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/constants/app_assets.dart';
 import 'package:movie_app/constants/app_colors.dart';
-import 'package:movie_app/constants/app_utils.dart';
-import 'package:movie_app/screens/tester.dart';
 import 'package:movie_app/stm/sign_in_provider.dart';
 import 'package:movie_app/widgets/auth_social_login.dart';
 import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
